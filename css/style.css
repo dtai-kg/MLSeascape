@@ -131,6 +131,7 @@ p {
 .navbar-brand img {
     max-width: 150px; 
     height: auto;
+    margin: 0;
   }
 
 

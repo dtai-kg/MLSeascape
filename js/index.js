@@ -17,11 +17,12 @@ navBar.forEach(function (a) {
     })
 })
 
-
+var searchMode = ""; 
 function enableSearch(placeholderText) {
     let placeholderDefault = "Search for machine learning ";
     document.getElementById('searchInput').setAttribute('placeholder', placeholderDefault + placeholderText);
     document.getElementById('searchContainer').style.display = 'block';
+    searchMode = placeholderText
 }
 
 let datasetDiv = document.querySelector("#datasetDiv");
@@ -122,3 +123,50 @@ function publicationClick(){
     implementationDiv.classList.remove("is-active");
     publicationDiv.classList.add("is-active");
 }
+
+// Define the URL of your local GraphDB SPARQL endpoint
+const endpointUrl = 'http://193.190.127.194:7200/repositories/mlsea-kg';
+
+// Define the Fetch request options
+const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/sparql-results+json'
+    }
+  };
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('searchButton').addEventListener('click', function () {
+        // Get the value entered in the search input
+        var searchTerm = document.getElementById('searchInput').value;
+        
+        // Construct your query with the search term as a variable
+        var sparqlQuery = datasetQuery(searchTerm);
+
+        // Encode the SPARQL query
+        var encodedQuery = encodeURIComponent(sparqlQuery);
+        
+        // Perform your fetch request with the constructed query
+        fetchData(endpointUrl, encodedQuery, requestOptions);
+    });
+});
+
+function fetchData(endpointUrl, encodedQuery, requestOptions){
+    // Fetch data from the SPARQL endpoint
+    fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+        // Process the JSON response
+        const bindings = data.results.bindings;
+        const outputDiv = document.getElementById('data');
+        outputDiv.innerHTML = '<h2>SPARQL Query Results:</h2><ul>';
+        bindings.forEach(binding => {
+        outputDiv.innerHTML += `<li>${binding.entity.value}, ${binding.label.value}</li>`;
+        });
+        outputDiv.innerHTML += '</ul>';
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
