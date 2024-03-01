@@ -293,6 +293,11 @@ p {
     background-color: deepskyblue;
 }  
 
+/* Results */
+.card{
+    margin:10px;
+}
+
 /* Footer */
 .footer_wrapper {
     background-color: var(--secondary-text);

@@ -10,7 +10,7 @@ function datasetInitial(searchTerm) {
         luc:query "name:${searchTerm}" ;
         luc:entities ?entity .
     ?entity rdfs:label ?label .
-    } LIMIT 10
+    } LIMIT 2
     `;
 
     return query

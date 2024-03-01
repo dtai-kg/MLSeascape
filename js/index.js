@@ -125,7 +125,7 @@ function publicationClick(){
 }
 
 // Define the URL of your local GraphDB SPARQL endpoint
-const endpointUrl = 'http://193.190.127.194:7200/repositories/mlsea-kg';
+const endpointUrl = 'http://localhost:7200/repositories/mlsea-kg';
 
 // Define the Fetch request options
 const requestOptions = {
@@ -137,17 +137,30 @@ const requestOptions = {
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('searchButton').addEventListener('click', function () {
+        //Get the searching label item
+        var searchingSpanDiv = document.getElementById('searchingSpan');
+
         // Get the value entered in the search input
         var searchTerm = document.getElementById('searchInput').value;
         
         // Construct your query with the search term as a variable
-        var sparqlQuery = datasetQuery(searchTerm);
+        var sparqlQuery = datasetInitial(searchTerm);
 
         // Encode the SPARQL query
         var encodedQuery = encodeURIComponent(sparqlQuery);
         
+        //Show searching label
+        searchingSpanDiv.style.display = 'block';
+        
         // Perform your fetch request with the constructed query
         fetchData(endpointUrl, encodedQuery, requestOptions);
+
+        document.getElementById('resultsTitle').scrollIntoView({
+            behavior: 'smooth'
+        });
+
+        //Hide searching label
+        searchingSpanDiv.style.display = 'none';
     });
 });
 
@@ -156,17 +169,64 @@ function fetchData(endpointUrl, encodedQuery, requestOptions){
     fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
     .then(response => response.json())
     .then(data => {
-        // Process the JSON response
-        const bindings = data.results.bindings;
-        const outputDiv = document.getElementById('data');
-        outputDiv.innerHTML = '<h2>SPARQL Query Results:</h2><ul>';
-        bindings.forEach(binding => {
-        outputDiv.innerHTML += `<li>${binding.entity.value}, ${binding.label.value}</li>`;
-        });
-        outputDiv.innerHTML += '</ul>';
+        displayResults(data.results.bindings);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
+    });
+}
+
+function displayResults(results) {
+
+    var resultsTitle = document.getElementById('resultsTitle');
+    resultsTitle.innerHTML = ''; // Clear previous results
+
+    var resultsTitleBody = document.createElement('div');
+    resultsTitleBody.classList.add("col-sm-12", "section-title", "text-center", "mb-5")
+
+    var resultsTitleText = document.createElement('h5');
+    resultsTitleText.textContent = "Search Results"
+
+    resultsTitleBody.appendChild(resultsTitleText);
+    resultsTitle.appendChild(resultsTitleBody);
+
+    var resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = ''; // Clear previous results
+
+    results.forEach(result => {
+        var box = document.createElement('div');
+        box.classList.add('col-12');
+
+        var card = document.createElement('div');
+        card.classList.add('card');
+
+        var cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        var title = document.createElement('h5');
+        title.classList.add('card-title');
+        title.textContent = result.label.value; 
+
+        var content = document.createElement('p');
+        content.classList.add('card-text');
+        content.textContent = `Predicate: ${result.entity.value}, Object: ${1}`; 
+
+        var iconWrapper = document.createElement('div');
+        iconWrapper.classList.add('float-right', 'info-icon-wrapper');
+
+        var icon = document.createElement('img');
+        icon.setAttribute('src', 'img/Kaggle_logo copy.png');
+        icon.setAttribute('alt', 'Info Icon');
+        icon.classList.add('img-fluid', 'info-icon'); // Adjust classes as needed 
+
+        iconWrapper.appendChild(icon);
+        cardBody.appendChild(title);
+        cardBody.appendChild(content);
+        cardBody.appendChild(iconWrapper);
+        card.appendChild(cardBody);
+        card.appendChild(icon);
+        box.appendChild(card);
+        resultsContainer.appendChild(box);
     });
 }
 
