@@ -18,7 +18,8 @@
     --primary-font: "Poppins", sans-serif;
     --secondary-font: "Poppins", sans-serif;
     --primary-text: #021832;
-    --secondary-text: rgb(56, 192, 237);
+    --secondary-text: rgb(31, 179, 228);
+    --result-title-text: rgb(20, 180, 233);
     --text-white: #fff;
     --text-black: #151515;
     --text-gray: #e4e4e4;
@@ -75,7 +76,7 @@ h3 span, h5 span {
 h5 {
     font-size: 1.5rem;
     line-height: 1;
-    color: var(--primary-text);
+    color: var(--result-title-text);
     margin-bottom: .9375rem;
     font-weight: 500;
     font-family: var(--secondary-font);
@@ -296,7 +297,28 @@ p {
 /* Results */
 .card{
     margin:10px;
+    box-shadow: 0 5px 10px rgba(62, 153, 219, 0.5);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
+
+.card-body img{
+    width: auto;
+}
+
+.card:hover {
+    transform:scale(1.03);
+    background-color: rgba(168, 232, 247, 0.972);
+}
+
+.card:hover .card-title{
+    color:white;
+}
+
+.card-title, .card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
 /* Footer */
 .footer_wrapper {
