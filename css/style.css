@@ -299,26 +299,51 @@ p {
     margin:10px;
     box-shadow: 0 5px 10px rgba(62, 153, 219, 0.5);
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    position: relative;
 }
 
-.card-body img{
-    width: auto;
+.card-title{
+    padding-bottom: 10px;
 }
+
+/* .card-body img{
+    height: 30px;
+} */
 
 .card:hover {
-    transform:scale(1.03);
-    background-color: rgba(168, 232, 247, 0.972);
+    transform:scale(1.01);
+    background-color: rgba(239, 247, 255, 0.903);
+    cursor: pointer;
 }
 
-.card:hover .card-title{
+/* .card:hover .card-title{
     color:white;
-}
+} */
 
 .card-title, .card-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .icon-container img{
+    width: 75px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .icon-container{
+    display: flex;
+    align-items: center;
+  }
+
+.card img,
+.card .card-body {
+    position: relative;
+    z-index: 1; /* Ensure text and images stay above the background */
+}
+
+  
 
 /* Footer */
 .footer_wrapper {
