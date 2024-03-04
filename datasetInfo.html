@@ -56,7 +56,53 @@
   <!-- Banner section exit -->
 
   <!-- Info section start-->
-  <div id="informationDiv"></div>
+    <div id="searchingSpan" style="display: none;" class="row">
+        <div  class="col-sm-12 section-title text-center mb-5">
+            <span>Fetching metadata...</span>
+        </div>
+    </div>
+
+  <section id="metadata">
+    <div id="informationDiv" class="container-fluid">
+        <div class="row ">
+            <div class="col-sm-1 lg-0"></div>
+            <div class="col-sm-10 text-left mb-8">
+                <h2><img src="img/database.png" style="width:30px;">Dataset Title</h2>
+                <a href="index.html" class="sourceLink">Source</a>
+                <p class="subtitle1">Date * Creator * Licence</p>
+                <p>Description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, molestias nesciunt, fuga laboriosam nihil impedit itaque ea doloribus obcaecati dolore sequi illum illo tempore odio numquam necessitatibus, vero ad hic?</p>
+                <br>
+
+                <p>Tags: Tag1, Tag2</p>
+                <p>Features: Feature1, Feature2</p>
+                <br><br><br><br>
+
+                <h4>Data Loaders</h4>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item">Data Loader 1</li>
+                    <li class="list-group-item">Data Loader 2</li>
+                    <li class="list-group-item">Data Loader 3</li>
+                    <!-- Add more list items as needed -->
+                </ul>
+                <br><br><br><br>
+
+                <h4>Similar Datasets</h4>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item">Dataset 1 <a href="index.html"> dsds</a></li>
+                    <li class="list-group-item">Dataset 2</li>
+                    <li class="list-group-item">Dataset 3</li>
+                    <!-- Add more list items as needed -->
+                </ul>
+                <br><br><br><br>
+
+            </div>
+            <div class="col-sm-1 lg-0"></div>
+        </div>
+    </div>
+  </section>
+  
 
 
 
@@ -85,6 +131,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Custom Js Link -->
+    <script src="js/queries.js"></script>
     <script src="js/datasetInfo.js"></script>
 
 </body>

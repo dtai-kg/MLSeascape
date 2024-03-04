@@ -125,7 +125,7 @@ function publicationClick(){
 }
 
 // Define the URL of your local GraphDB SPARQL endpoint
-const endpointUrl = 'http://localhost:7200/repositories/mlsea-kg';
+const endpointUrl = 'http://193.190.127.194:7200/repositories/mlsea-kg';
 
 // Define the Fetch request options
 const requestOptions = {
@@ -170,19 +170,6 @@ function fetchSearchData(endpointUrl, encodedQuery, requestOptions){
     .then(response => response.json())
     .then(data => {
         displayResults(data.results.bindings);
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
-}
-
-function fetchMetaData(endpointUrl, encodedQuery, requestOptions, entity){
-    // Fetch data from the SPARQL endpoint
-    fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
-    .then(response => response.json())
-    .then(data => {
-        var encodedData = encodeURIComponent(JSON.stringify(data));
-        window.open("datasetInfo.html?data=" + encodedData, "_blank");
     })
     .catch(error => {
         console.error('Error fetching data:', error);
@@ -296,38 +283,11 @@ function displayResultsPage(results, startIndex, endIndex) {
         box.appendChild(card);
         resultsContainer.appendChild(box);
 
-        card.addEventListener('click', function (event) {
-            var entity = result.entity.value; // Extract the entity (subject) from the clicked card
-            var sparqlQuery = datasetMetadataQuery(entity);
-            var encodedQuery = encodeURIComponent(sparqlQuery);
-            fetchMetaData(endpointUrl, encodedQuery, requestOptions, entity)
-        }.bind(null, result));
+        card.addEventListener('click', function () {
+            var entity = result.entity.value.split("/mlsea/")[1]; // Extract the entity (subject) from the clicked card
+            window.open("datasetInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+        });
 
     }
 };
-
-function openNewHTMLFile(entity, data) {
-    // Open a new HTML file
-    var newWindow = window.open('datasetInfo.html', '_blank');
-    if (newWindow) {
-        // Construct the text content using the retrieved data
-        var textContent = `<h2>Entity: ${entity}</h2>`;
-        textContent += '<ul>';
-        data.results.bindings.forEach(binding => {
-            textContent += `<li>${binding.p.value}: ${binding.o.value}</li>`;
-        });
-        textContent += '</ul>';
-
-        // Get the information div in the new HTML page
-        var informationDiv = newWindow.document.getElementById('informationDiv');
-        if (informationDiv) {
-            // Insert the query information into the information div
-            informationDiv.innerHTML = textContent;
-        } else {
-            console.error('Information div not found in the new HTML page.');
-        }
-    } else {
-        console.error('Failed to open new HTML file.');
-    }
-}
 
