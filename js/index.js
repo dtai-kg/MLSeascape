@@ -237,6 +237,7 @@ function displayResultsPage(results, startIndex, endIndex) {
 
     for (var i = startIndex; i < endIndex; i++) {
         var result = results[i];
+        console.log(result);
 
         var box = document.createElement('div');
         box.classList.add('col-12', 'col-sm-10', 'col-md-8', 'col-lg-7');
@@ -256,7 +257,19 @@ function displayResultsPage(results, startIndex, endIndex) {
 
         var content = document.createElement('p');
         content.classList.add('card-text');
-        content.textContent = `Text: ${result.entity.value}, Object: ${1}`; 
+        if (result.hasOwnProperty('date') && result.hasOwnProperty('description')) {
+            content.textContent = `${distanceToCurrentYear(result.date.value.split("T")[0])} ago · ${result.description.value}`;
+        }
+        else if (result.hasOwnProperty('date')){
+            content.textContent = `${distanceToCurrentYear(result.date.value.split("T")[0])} ago`
+        }
+        else if (result.hasOwnProperty('description')){
+            content.textContent = `${result.description.value}`
+        }
+        else {
+            content.textContent = ``; 
+        }
+        
         
         var iconDiv = document.createElement('div');
         iconDiv.classList.add('col-3', 'col-xl-2', 'icon-container')
@@ -283,11 +296,37 @@ function displayResultsPage(results, startIndex, endIndex) {
         box.appendChild(card);
         resultsContainer.appendChild(box);
 
+        
+        (function(result) {
         card.addEventListener('click', function () {
+            console.log(result.entity.value);
             var entity = result.entity.value.split("/mlsea/")[1]; // Extract the entity (subject) from the clicked card
             window.open("datasetInfo.html?entity=" + encodeURIComponent(entity), "_blank");
-        });
+            });
+        })(result);
 
     }
 };
+
+// Get the current date
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const currentMonth = currentDate.getMonth() + 1;
+function distanceToCurrentYear(dateString) { 
+    // Calculate the difference between the current year and the input year
+    const [year, month, day] = dateString.split('-').map(Number);
+    const yearDiff = currentYear - year;
+
+    if (yearDiff === 0) {
+        // Calculate the difference between the current month and the input month
+        const monthDiff = currentMonth - month;
+        return monthDiff + " months";
+    } 
+    else if (yearDiff === 1){
+        return "1 year";
+    }
+    else {
+        return yearDiff + " years";
+    }
+}
 
