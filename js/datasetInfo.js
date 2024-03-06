@@ -11,7 +11,7 @@ const datasetEntity = prefix + entityID; //"http://w3id.org/mlsea/pwc/dataset/MN
 //console.log(datasetEntity)
 
 // Define the URL of your local GraphDB SPARQL endpoint
-const endpointUrl = 'http://193.190.127.194:7200/repositories/mlsea-kg';
+const endpointUrl = 'https://193.190.127.194:7200/repositories/mlsea-kg';
 
 // Define the Fetch request options
 const requestOptions = {

@@ -125,7 +125,7 @@ function publicationClick(){
 }
 
 // Define the URL of your local GraphDB SPARQL endpoint
-const endpointUrl = 'http://193.190.127.194:7200/repositories/mlsea-kg';
+const endpointUrl = 'https://193.190.127.194:7200/repositories/mlsea-kg';
 
 // Define the Fetch request options
 const requestOptions = {
@@ -237,7 +237,6 @@ function displayResultsPage(results, startIndex, endIndex) {
 
     for (var i = startIndex; i < endIndex; i++) {
         var result = results[i];
-        console.log(result);
 
         var box = document.createElement('div');
         box.classList.add('col-12', 'col-sm-10', 'col-md-8', 'col-lg-7');
