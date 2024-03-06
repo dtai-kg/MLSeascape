@@ -275,7 +275,7 @@ function displayResultsPage(results, startIndex, endIndex) {
 
         var icon = document.createElement('img');
         if (result.entity.value.includes("kaggle")) {
-            icon.setAttribute('src', 'img/kaggle_logo.png');
+            icon.setAttribute('src', 'img/kaggle-logo.png');
         }
         else if (result.entity.value.includes("openml")) {
             icon.setAttribute('src', 'img/openml-logo.png');
