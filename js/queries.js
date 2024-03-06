@@ -11,6 +11,7 @@ PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX mlso: <http://w3id.org/mlso/>
 PREFIX schema: <http://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX fabio: <http://purl.org/spar/fabio/>
 `;
 
 function datasetSearchQuery(searchTerm) {
@@ -125,4 +126,141 @@ function datasetPublicationQuery(entity) {
 
     return prefixes + query
 }
+
+function modelSearchQuery(searchTerm) {
+
+    query = `
+    SELECT ?entity ?label ?paperLabel{
+        ?search a luc-index:model_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity .
+        ?entity rdfs:label ?label .
+        
+          OPTIONAL{
+            ?runID mls:hasOutput ?entity;
+               mls:executes ?implID.
+          ?paperID mlso:hasRelatedImplementation ?implID;
+                   rdfs:label ?paperLabel.}
+          
+      } LIMIT ${searchLimit}
+    `;
+
+    return prefixes + query
+}
+
+function softwareSearchQuery(searchTerm) {
+
+    query = `
+    SELECT ?entity ?label {
+        ?search a luc-index:software_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity .
+        ?entity rdfs:label ?label .
+          
+      } LIMIT ${searchLimit}
+    `;
+
+    return prefixes + query
+}
+
+function taskSearchQuery(searchTerm) {
+
+    query = `
+    SELECT * WHERE
+    { 
+    {
+        SELECT ?entity ?label WHERE{
+        ?search a luc-index:concept_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity .
+        FILTER(CONTAINS(STR(?entity), "task"))
+        ?entity skos:prefLabel ?label.
+        }  
+        }
+    UNION
+        {
+        SELECT ?entity ?label WHERE{
+        ?search a luc-index:task1_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity.
+        ?entity rdfs:label ?label.
+        }  
+        }
+    } LIMIT ${searchLimit}
+    `;
+
+    return prefixes + query
+}
+
+function algorithmSearchQuery(searchTerm) {
+
+    query = `
+    SELECT ?entity ?label ?algoDefinition{
+        ?search a luc-index:algorithm_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity .
+        ?entity rdfs:label ?label .
+
+        OPTIONAL{?entity mlso:hasAlgorithmType ?algoTypeID.
+            ?algoTypeID skos:definition ?algoDefinition.}
+          
+      } LIMIT ${searchLimit}
+    `;
+
+    return prefixes + query
+}
+
+function implementationSearchQuery(searchTerm) {
+
+    query = `
+    SELECT * WHERE
+    { 
+    {
+        SELECT ?entity ?label ?description WHERE{
+        ?search a luc-index:implementation1_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity .
+        ?entity rdfs:label ?label.
+        OPTIONAL {?entity dcterms:description ?description.}
+        }  
+        }
+    UNION
+        {
+        SELECT ?entity ?label ?description WHERE{
+        ?search a luc-index:implementation2_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity .
+        ?entity dcterms:title ?label;
+        
+        OPTIONAL {?entity dcterms:description ?description.}
+        }  
+        }
+    } LIMIT ${searchLimit}
+    `;
+
+    return prefixes + query
+}
+
+function publicationSearchQuery(searchTerm) {
+
+    query = `
+    SELECT ?entity ?label ?date ?description{
+        ?search a luc-index:publication_index ;
+            luc:query "name:${searchTerm}" ;
+            luc:entities ?entity .
+        ?entity rdfs:label ?label .
+          OPTIONAL{?entity dcterms:issued ?date}
+          OPTIONAL{?entity fabio:abstract ?description}
+          
+      } LIMIT ${searchLimit}
+    `;
+
+    return prefixes + query
+}
+
+
+
+
+
+    
 

@@ -144,7 +144,27 @@ document.addEventListener('DOMContentLoaded', function () {
         var searchTerm = document.getElementById('searchInput').value;
         
         // Construct your query with the search term as a variable
-        var sparqlQuery = datasetSearchQuery(searchTerm);
+        if (searchMode == "datasets"){
+            var sparqlQuery = datasetSearchQuery(searchTerm);
+        }
+        else if (searchMode == "models"){
+            var sparqlQuery = modelSearchQuery(searchTerm);
+        }
+        else if (searchMode == "software"){
+            var sparqlQuery = softwareSearchQuery(searchTerm);
+        }
+        else if (searchMode == "tasks"){
+            var sparqlQuery = taskSearchQuery(searchTerm);
+        }
+        else if (searchMode == "algorithms"){
+            var sparqlQuery = algorithmSearchQuery(searchTerm);
+        }
+        else if (searchMode == "implementations"){
+            var sparqlQuery = implementationSearchQuery(searchTerm);
+        }
+        else if (searchMode == "publications"){
+            var sparqlQuery = publicationSearchQuery(searchTerm);
+        }
 
         // Encode the SPARQL query
         var encodedQuery = encodeURIComponent(sparqlQuery);
@@ -265,8 +285,18 @@ function displayResultsPage(results, startIndex, endIndex) {
         else if (result.hasOwnProperty('description')){
             content.textContent = `${result.description.value}`
         }
-        else {
-            content.textContent = ``; 
+        else if (result.hasOwnProperty('paperLabel')) {
+            content.textContent = `${result.paperLabel.value}`; 
+        }else if (searchMode === "software"){
+            if (result.entity.value.includes("kaggle")){
+                content.textContent = `Machine Learning Code Notebook`
+            }
+            else if (result.entity.value.includes("pwc")){
+                content.textContent = `Machine Learning Code Repository`
+            }
+        }
+        else if (result.hasOwnProperty('algoDefinition')) {
+            content.textContent = `${result.algoDefinition.value}`; 
         }
         
         
@@ -300,7 +330,29 @@ function displayResultsPage(results, startIndex, endIndex) {
         card.addEventListener('click', function () {
             console.log(result.entity.value);
             var entity = result.entity.value.split("/mlsea/")[1]; // Extract the entity (subject) from the clicked card
-            window.open("datasetInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+
+            if (searchMode === "datasets"){
+                window.open("datasetInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+            }
+            else if (searchMode === "models"){
+                window.open("modelInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+            }
+            else if (searchMode === "software"){
+                window.open("softwareInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+            }
+            else if (searchMode === "tasks"){
+                window.open("taskInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+            }
+            else if (searchMode === "algorithms"){
+                window.open("algorithmInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+            }
+            else if (searchMode === "implementations"){
+                window.open("implementationInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+            }
+            else if (searchMode === "publications"){
+                window.open("publicationInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+            }
+            
             });
         })(result);
 
