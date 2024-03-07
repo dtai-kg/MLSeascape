@@ -198,7 +198,7 @@ function fetchSearchData(endpointUrl, encodedQuery, requestOptions){
 }
 
 function handleConnectionError() {
-    confirm("Before proceeding, you need to accept connection with our private server. In another tab of your browser, go to adress 'https://193.190.127.194:7200/'. In the new page that appears, click Advanced > Accept the Risk and Continue. Close the window and return to this page.") 
+    confirm("Before proceeding, you need to accept connection with our private server. In another tab of your browser, go to adress 'https://193.190.127.194:7200/'. In the new page that appears, click Advanced > Accept the Risk and Continue. Then, close the GraphDB window and return to this page.") 
   }
 
 function displayResults(results) {
