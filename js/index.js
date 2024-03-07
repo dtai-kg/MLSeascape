@@ -193,8 +193,13 @@ function fetchSearchData(endpointUrl, encodedQuery, requestOptions){
     })
     .catch(error => {
         console.error('Error fetching data:', error);
+        handleConnectionError();
     });
 }
+
+function handleConnectionError() {
+    confirm("Before proceeding, you need to accept connection with our private server. In another tab of your browser, go to adress 'https://193.190.127.194:7200/'. In the new page that appears, click Advanced > Accept the Risk and Continue. Close the window and return to this page.") 
+  }
 
 function displayResults(results) {
 
@@ -380,4 +385,7 @@ function distanceToCurrentYear(dateString) {
         return yearDiff + " years";
     }
 }
+
+fetch("https://193.190.127.194:7200")
+  .catch(handleConnectionError);
 
