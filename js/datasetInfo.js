@@ -146,14 +146,16 @@ function displayDatasetMetadata(result) {
 
     if (variableCheck(result, "variantLabels")){
         var variantLabels = result.variantLabels.value.split("|")
+        variantLabels = listClean(variantLabels, result.label.value)
 
-        informationDiv.innerHTML += '<h3>Similar Datasets</h3><hr>'
-        informationDiv.innerHTML += '<ul class="list-group">'
-        for (var i=0; i < variantLabels.length; i++){
-            informationDiv.innerHTML += `<li class="list-group-item">${variantLabels[i]}</li>`
+        if (variantLabels.length > 0){
+            informationDiv.innerHTML += '<h3>Similar Datasets</h3><hr>'
+            informationDiv.innerHTML += '<ul class="list-group">'
+            for (var i=0; i < variantLabels.length; i++){
+                informationDiv.innerHTML += `<li class="list-group-item">${variantLabels[i]}</li>`
+            }
+            informationDiv.innerHTML += '</ul><br><br><br><br>'
         }
-        informationDiv.innerHTML += '</ul><br><br><br><br>'
-
     }
 }
 
@@ -236,8 +238,10 @@ function displayDatasetPublicationMetadata(result) {
         }
 
         informationDiv.innerHTML += '<h3><img src="img/publication.png" style="width:25px;"> Publication Introduced</h3><hr>'
+        informationDiv.innerHTML += `<p>Title: <b>'${result.paperLabel.value}'</b></p>`
         informationDiv.innerHTML += `<p>Source: <a href="${publication}" target="_blank">${publication.split("://")[1]}</a></p>`
         informationDiv.innerHTML += `<p>Original publication: <a href="${originalLink}" target="_blank">${originalLink.split("://")[1]}</a></p>`
+        informationDiv.innerHTML += '<br><br><br><br>'
     }
 
 }

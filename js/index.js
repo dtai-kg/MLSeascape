@@ -198,8 +198,8 @@ function fetchSearchData(endpointUrl, encodedQuery, requestOptions){
 }
 
 function handleConnectionError() {
-    confirm("Before proceeding, you need to accept connection with our private server. In another tab of your browser, go to adress 'https://193.190.127.194:7200/'. In the new page that appears, click Advanced > Accept the Risk and Continue. Then, close the GraphDB window and return to this page.") 
-  }
+    confirm("Welcome to MLSeascape! Before proceeding, you need to accept connection with our private GraphDB server. In another tab of your browser, go to adress 'https://193.190.127.194:7200'. There, click Advanced > Accept and Continue. Close the GraphDB window and return to this page. Thank you!") 
+}
 
 function displayResults(results) {
 

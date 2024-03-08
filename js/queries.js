@@ -12,6 +12,7 @@ PREFIX mlso: <http://w3id.org/mlso/>
 PREFIX schema: <http://schema.org/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX sdo: <https://w3id.org/okn/o/sd#>
 `;
 
 function datasetSearchQuery(searchTerm) {
@@ -113,14 +114,15 @@ function datasetSoftwareQuery(entity) {
 function datasetPublicationQuery(entity) {
 
     query = `
-    SELECT ?label (GROUP_CONCAT(DISTINCT ?publication; separator="|") AS ?publications)
+    SELECT ?label ?paperLabel (GROUP_CONCAT(DISTINCT ?publication; separator="|") AS ?publications)
     WHERE {
         <${entity}> rdfs:label ?label.
         
         OPTIONAL {<${entity}> mlso:hasScientificReference ?publicationID.
-                    ?publicationID dcterms:source  ?publication.}
+                    ?publicationID dcterms:source  ?publication;
+                                   rdfs:label ?paperLabel.}
 
-    } GROUP BY ?label 
+    } GROUP BY ?label ?paperLabel
     LIMIT 1
     `;
 
@@ -148,6 +150,107 @@ function modelSearchQuery(searchTerm) {
     return prefixes + query
 }
 
+function modelMetadataQuery(searchTerm) {
+
+    query = `
+    SELECT ?label ?evalLabel (GROUP_CONCAT(DISTINCT ?evalValue; separator="|") AS ?evalValues)
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        
+        OPTIONAL{?runID mls:hasOutput <${searchTerm}>;
+                        mls:hasOutput ?evalID.
+                ?evalID rdf:type mls:ModelEvaluation;
+                        rdfs:label ?evalLabel;
+                        mls:hasValue ?evalValue.}
+
+    } GROUP BY ?label ?evalLabel
+    LIMIT 20
+    `;
+
+    return prefixes + query
+}
+
+function modelSoftwareQuery(searchTerm) {
+
+    query = `
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?repoSource; separator="|") AS ?repoSources)
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        OPTIONAL {<${searchTerm}> schema:codeRepository ?repoSource.}
+        
+
+    } GROUP BY ?label
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
+function modelPublicationQuery(searchTerm) {
+
+    query = `
+    SELECT ?label ?paperLabel (GROUP_CONCAT(DISTINCT ?paperSource; separator="|") AS ?paperSources)
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        
+        OPTIONAL{
+        ?runID mls:hasOutput <${searchTerm}>;
+            mls:executes ?implID.
+        ?paperID mlso:hasRelatedImplementation ?implID;
+                rdfs:label ?paperLabel;
+                dcterms:source ?paperSource.}
+        
+
+    } GROUP BY ?label ?paperLabel
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
+function modelTaskQuery(searchTerm) {
+
+    query = `
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?taskLabel; separator="|") AS ?taskLabels)
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        
+        OPTIONAL{
+        ?runID mls:hasOutput <${searchTerm}>;
+            mls:executes ?implID.
+        ?paperID mlso:hasRelatedImplementation ?implID;
+                mlso:hasTaskType ?taskTypeID.
+        ?taskTypeID skos:prefLabel ?taskLabel.}
+        
+
+    } GROUP BY ?label 
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
+function modelAlgorithmQuery(searchTerm) {
+
+    query = `
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?algoLabel; separator="|") AS ?algoLabels)
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        
+        OPTIONAL{
+        ?runID mls:hasOutput <${searchTerm}>;
+            mls:executes ?implID.
+        ?implID mls:implements ?algoID.
+        ?algoID rdfs:label ?algoLabel.}
+        
+
+    } GROUP BY ?label 
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
 function softwareSearchQuery(searchTerm) {
 
     query = `
@@ -158,6 +261,101 @@ function softwareSearchQuery(searchTerm) {
         ?entity rdfs:label ?label .
           
       } LIMIT ${searchLimit}
+    `;
+
+    return prefixes + query
+}
+
+function softwareMetadataQuery(searchTerm) {
+
+    query = `
+    SELECT ?label ?source (GROUP_CONCAT(DISTINCT ?requirement; separator="|") AS ?requirements) ?creatorLabel ?date ?progLang
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        
+        OPTIONAL {<${searchTerm}> schema:codeRepository ?source.}
+        OPTIONAL {<${searchTerm}> sdo:softwareRequirements ?requirement.}
+        OPTIONAL {<${searchTerm}> dcterms:creator ?creatorID.
+                ?creatorID rdfs:label ?creatorLabel.}
+        OPTIONAL {<${searchTerm}> dcterms:created ?date.}
+        OPTIONAL {<${searchTerm}> sdo:hasSourceCode ?sourceCode.
+                ?sourceCode sdo:programmingLanguage ?progLang.}
+
+    } GROUP BY ?label ?source ?creatorLabel ?date ?progLang
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
+function softwareDatasetQuery(searchTerm) {
+
+    query = `
+    SELECT ?label ?datasetLabel ?datasetSource
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        
+        OPTIONAL{?datasetID mlso:hasRelatedSoftware <${searchTerm}>;
+                            rdf:type mls:Dataset;
+                            rdfs:label ?datasetLabel.}
+        OPTIONAL{?datasetID mlso:hasRelatedSoftware <${searchTerm}>;
+                            dcat:landingPage ?datasetSource.}
+
+    } 
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
+function softwarePublicationQuery(searchTerm) {
+
+    query = `
+    SELECT ?label ?paperLabel (GROUP_CONCAT(DISTINCT ?paperSource; separator="|") AS ?paperSources)
+    WHERE {
+        <${searchTerm}>  rdfs:label ?label.
+        OPTIONAL{?paperID mlso:hasRelatedSoftware <${searchTerm}>;
+                            rdf:type mlso:ScientificWork;
+                            rdfs:label ?paperLabel;
+                            dcat:landingPage ?paperSource.}
+    } GROUP BY ?label ?paperLabel
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
+function softwareTaskQuery(searchTerm) {
+
+    query = `
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?taskLabel; separator="|") AS ?taskLabels)
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+
+        OPTIONAL{?paperID mlso:hasRelatedSoftware <${searchTerm}>;
+                        mlso:hasTaskType ?taskTypeID.
+                ?taskTypeID skos:prefLabel ?taskLabel.}
+    } GROUP BY ?label 
+    LIMIT 1
+    `;
+
+    return prefixes + query
+}
+
+function softwareAlgorithmQuery(searchTerm) {
+
+    query = `
+    SELECT ?label ?paperID ?implemID (GROUP_CONCAT(DISTINCT ?algoLabel; separator="|") AS ?algoLabels)
+    WHERE {
+        <${searchTerm}> rdfs:label ?label.
+        
+        OPTIONAL{?paperID mlso:hasRelatedSoftware <${searchTerm}>.
+        ?paperID mlso:hasRelatedImplementation ?implemID.
+        ?implemID mls:implements ?algoID.
+            ?algoID rdfs:label ?algoLabel.}
+                
+    } GROUP BY ?label ?paperID ?implemID
+    LIMIT 1
     `;
 
     return prefixes + query
