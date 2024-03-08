@@ -100,7 +100,7 @@ function displayDatasetMetadata(result) {
     informationDiv.innerHTML = '';
 
 
-    informationDiv.innerHTML += `<h2><img src="img/database.png" style="width:30px;">${result.label.value}</h2>`
+    informationDiv.innerHTML += `<h2><img src="img/database.png" style="width:30px;"> ${result.label.value}</h2>`
     if (result.hasOwnProperty('source')){
         informationDiv.innerHTML += `<a href="${result.source.value}" class="sourceLink" target=”_blank”>Source</a>`
     }

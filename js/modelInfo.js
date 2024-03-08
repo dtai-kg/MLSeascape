@@ -1,7 +1,5 @@
 const pwc_test = 'http://w3id.org/mlsea/pwc/model/COTS%3A%20Collaborative%20Two-Stream%20Vision-Language%20Pre-Training%20Model%20for%20Cross-Modal%20Retrieval/COTS' ;
 const pwc_test2 = "http://w3id.org/mlsea/pwc/model/Deep%20Residual%20Learning%20for%20Image%20Recognition/ResNet-50%20%28generalization%29"
-const tf_repo = "https://github.com/tensorflow/datasets"
-const hf_repo = "https://github.com/huggingface/datasets"
 
 const entityID = decodeURIComponent(window.location.href).split("?entity=")[1];
 const prefix = "http://w3id.org/mlsea/"
@@ -114,7 +112,7 @@ function displayModelMetadata(results) {
     informationDiv.innerHTML = '';
 
     var result = results[0];
-    informationDiv.innerHTML += `<h2><img src="img/model.png" style="width:30px;">${result.label.value}</h2><br><br><br>`
+    informationDiv.innerHTML += `<h2><img src="img/model.png" style="width:30px;"> ${result.label.value}</h2><br><br><br>`
 
     if (variableCheck(result, "evalLabel")){
         var evalLabels = [];

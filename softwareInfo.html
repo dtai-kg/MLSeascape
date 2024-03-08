@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLSeascape</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="img/mlsea-logo-transparent.png">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+  <!-- Custom File's Link -->
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+  
+    <!-- Navbar section -->
+    <header class="header_wrapper">
+      <nav class="navbar navbar-expand-lg">
+          <div class="container">
+              <a class="navbar-brand mx-auto" href="./index.html">
+                  <img src="img/mlsea-logo-transparent.png"  alt="logo">
+              </a>
+  
+          </div>
+      </nav>
+    </header>
+    <!-- Navbar section exit -->
+  
+    <!-- Banner section -->
+    <section id="home" class="banner_wrapper p-0">
+      <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+              <div class="swiper-slide" style="background-image: url(./img/DALL·E1.png);">
+                  <div class="slide-caption text-center">
+                      <div>
+                          <h1>Discover Machine Learning with the Power of Knowledge Graphs</h1>
+                          <p>Explore a sea of machine learning from all over the web </p>
+                      </div>
+                  </div>
+              </div>
+  
+          </div>
+          <div class="swiper-pagination"></div>
+      </div>
+      
+  </section>
+  <br><br><br><br><br><br>
+  <!-- Banner section exit -->
+
+  <!-- Info section start-->
+    <div id="searchingSpan" style="display: none;" class="row">
+        <div  class="col-sm-12 section-title text-center mb-5">
+            <span>Fetching metadata...</span>
+        </div>
+    </div>
+
+  <section id="metadata">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-sm-1 lg-0"></div>
+            <div class="col-sm-10 text-left mb-8" id="softwareMetadataDiv">
+                <!-- <h2><img src="img/database.png" class="titleIcon">Dataset Title</h2>
+                <a href="index.html" class="sourceLink" target=”_blank”>Source</a>
+                <br>
+                <span class="subtitle1">Date * Creator * Licence</span>
+                <br><br>
+                <p>Description Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, molestias nesciunt, fuga laboriosam nihil impedit itaque ea doloribus obcaecati dolore sequi illum illo tempore odio numquam necessitatibus, vero ad hic?</p>
+                <br>
+
+                <p><b>Tags:</b> Tag1, Tag2</p>
+                <p><b>Features:</b> Feature1, Feature2</p>
+                <br><br><br><br>
+
+                <h4>Data Loaders</h4>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item">Data Loader 1</li>
+                    <li class="list-group-item">Data Loader 2</li>
+                    <li class="list-group-item">Data Loader 3</li>
+                </ul>
+                <br><br><br><br>
+
+                <h4>Similar Datasets</h4>
+                <hr>
+                <ul class="list-group">
+                    <li class="list-group-item">Dataset 1 <a href="index.html"> dsds</a></li>
+                    <li class="list-group-item">Dataset 2</li>
+                    <li class="list-group-item">Dataset 3</li>
+                </ul>
+                <br><br><br><br> -->
+
+
+            </div>
+            <div class="col-sm-1 lg-0"></div>
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-1 lg-0"></div>
+            <div class="col-sm-10 text-left mb-8" id="softwareDatasetDiv">
+                
+            </div>
+            <div class="col-sm-1 lg-0"></div>
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-1 lg-0"></div>
+            <div class="col-sm-10 text-left mb-8" id="softwareTaskDiv">
+
+            </div>
+            <div class="col-sm-1 lg-0"></div>
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-1 lg-0"></div>
+            <div class="col-sm-10 text-left mb-8" id="softwareAlgorithmDiv">
+                
+            </div>
+            <div class="col-sm-1 lg-0"></div>
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-1 lg-0"></div>
+            <div class="col-sm-10 text-left mb-8" id="softwarePublicationDiv">
+                
+            </div>
+            <div class="col-sm-1 lg-0"></div>
+        </div>
+
+        
+    </div>
+  </section>
+  
+
+
+
+   <!-- Info section start-->
+
+    <!-- Footer Section Start-->
+    <br><br><br>
+    <section id="footer" class="footer_wrapper mt-3 mt-md-0 pb-0">
+        <div class="container pb-3">
+            <div class="row">
+                <div class="col-lg-12 text-center text-lg-center">
+                    <p>Developed by Ioannis Dasoulas, DTAI Lab, KU Leuven</p>
+                    <p>Find out more about <a href="https://www.w3id.org/mlsea" target=”_blank”> MLSea</a> </p>
+                    <a href="https://www.flaticon.com/free-icons/server" title="server icons">Server icons created by phatplus - Flaticon</a>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Footer section exit -->
+
+    <!-- Bootstrap JS and jQuery (optional, for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom Js Link -->
+    <script src="js/queries.js"></script>
+    <script src="js/softwareInfo.js"></script>
+
+</body>
+</html>

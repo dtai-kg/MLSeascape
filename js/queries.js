@@ -317,7 +317,7 @@ function softwarePublicationQuery(searchTerm) {
         OPTIONAL{?paperID mlso:hasRelatedSoftware <${searchTerm}>;
                             rdf:type mlso:ScientificWork;
                             rdfs:label ?paperLabel;
-                            dcat:landingPage ?paperSource.}
+                            dcterms:source ?paperSource.}
     } GROUP BY ?label ?paperLabel
     LIMIT 1
     `;
