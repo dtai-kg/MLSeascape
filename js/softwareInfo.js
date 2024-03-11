@@ -3,7 +3,7 @@ const kaggle_test = "http://w3id.org/mlsea/kaggle/software/19179"
 const kaggle_test2 = "http://w3id.org/mlsea/kaggle/software/17711"
 
 const entityID = decodeURIComponent(window.location.href).split("?entity=")[1];
-const prefix = "http://w3id.org/mlsea/"
+const prefix = "http://w3id.org/"
 const modelEntity = prefix + entityID ; 
 //console.log(datasetEntity)
 

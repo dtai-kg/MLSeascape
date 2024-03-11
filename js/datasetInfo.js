@@ -6,7 +6,7 @@ const tf_repo = "https://github.com/tensorflow/datasets"
 const hf_repo = "https://github.com/huggingface/datasets"
 
 const entityID = decodeURIComponent(window.location.href).split("?entity=")[1];
-const prefix = "http://w3id.org/mlsea/"
+const prefix = "http://w3id.org/"
 const datasetEntity = prefix + entityID; //"http://w3id.org/mlsea/pwc/dataset/MNIST" 
 //console.log(datasetEntity)
 

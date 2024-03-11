@@ -2,7 +2,7 @@ const pwc_test = 'http://w3id.org/mlsea/pwc/model/COTS%3A%20Collaborative%20Two-
 const pwc_test2 = "http://w3id.org/mlsea/pwc/model/Deep%20Residual%20Learning%20for%20Image%20Recognition/ResNet-50%20%28generalization%29"
 
 const entityID = decodeURIComponent(window.location.href).split("?entity=")[1];
-const prefix = "http://w3id.org/mlsea/"
+const prefix = "http://w3id.org/"
 const modelEntity = prefix+ entityID ; 
 //console.log(datasetEntity)
 

@@ -334,7 +334,7 @@ function displayResultsPage(results, startIndex, endIndex) {
         (function(result) {
         card.addEventListener('click', function () {
             console.log(result.entity.value);
-            var entity = result.entity.value.split("/mlsea/")[1]; // Extract the entity (subject) from the clicked card
+            var entity = result.entity.value.split("w3id.org/")[1]; // Extract the entity (subject) from the clicked card
 
             if (searchMode === "datasets"){
                 window.open("datasetInfo.html?entity=" + encodeURIComponent(entity), "_blank");
