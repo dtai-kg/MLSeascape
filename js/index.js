@@ -273,7 +273,7 @@ function displayResultsPage(results, startIndex, endIndex) {
         cardBody.classList.add('card-body', 'row', 'text-info');
 
         var cardTextDiv = document.createElement('div');
-        cardTextDiv.classList.add('col-7', 'col-sm-9', 'col-xl-10'); xs
+        cardTextDiv.classList.add('col-7', 'col-sm-9', 'col-xl-10'); 
 
         var title = document.createElement('h5');
         title.classList.add('card-title');
