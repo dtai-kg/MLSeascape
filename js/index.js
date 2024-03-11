@@ -273,7 +273,7 @@ function displayResultsPage(results, startIndex, endIndex) {
         cardBody.classList.add('card-body', 'row', 'text-info');
 
         var cardTextDiv = document.createElement('div');
-        cardTextDiv.classList.add('col-8', 'col-sm-9', 'col-xl-10');
+        cardTextDiv.classList.add('col-7', 'col-sm-9', 'col-xl-10'); xs
 
         var title = document.createElement('h5');
         title.classList.add('card-title');
@@ -306,7 +306,7 @@ function displayResultsPage(results, startIndex, endIndex) {
         
         
         var iconDiv = document.createElement('div');
-        iconDiv.classList.add('col-4', 'col-sm-3', 'col-xl-2', 'icon-container')
+        iconDiv.classList.add('col-5', 'col-sm-3', 'col-xl-2', 'icon-container')
 
         var icon = document.createElement('img');
         if (result.entity.value.includes("kaggle")) {
