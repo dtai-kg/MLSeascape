@@ -576,7 +576,7 @@ function algorithmPublicationQuery(searchTerm) {
 function algorithmModelQuery(searchTerm) {
 
     query = `
-    SELECT ?label (GROUP_CONCAT(DISTINCT ? modelID; separator="|") AS ? modelIDs)  (GROUP_CONCAT(DISTINCT ? modelLabel; separator="|") AS ? modelLabels)
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?modelID; separator="|") AS ?modelIDs)  (GROUP_CONCAT(DISTINCT ?modelLabel; separator="|") AS ?modelLabels)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
@@ -616,7 +616,8 @@ function algorithmSoftwareQuery(searchTerm) {
 function algorithmTaskQuery(searchTerm) {
 
     query = `
-    SELECT ?label  (GROUP_CONCAT(DISTINCT ?taskTypeLabel; separator="|") AS ?taskTypeLabels) 
+    SELECT ?label  (GROUP_CONCAT(DISTINCT ?taskTypeLabel; separator="|") AS ?taskTypeLabels)
+    (GROUP_CONCAT(DISTINCT ?taskTypeID; separator="|") AS ?taskTypeIDs) 
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
@@ -635,28 +636,13 @@ function algorithmTaskQuery(searchTerm) {
 function implementationSearchQuery(searchTerm) {
 
     query = `
-    SELECT * WHERE
-    { 
-    {
-        SELECT ?entity ?label ?description WHERE{
-        ?search a luc-index:implementation1_index ;
-            luc:query "name:${searchTerm}" ;
-            luc:entities ?entity .
-        ?entity rdfs:label ?label.
-        OPTIONAL {?entity dcterms:description ?description.}
-        }  
-        }
-    UNION
-        {
-        SELECT ?entity ?label ?description WHERE{
+    SELECT ?entity ?label ?description {
         ?search a luc-index:implementation2_index ;
             luc:query "name:${searchTerm}" ;
             luc:entities ?entity .
         ?entity dcterms:title ?label;
         
         OPTIONAL {?entity dcterms:description ?description.}
-        }  
-        }
     } LIMIT ${searchLimit}
     `;
 
