@@ -695,7 +695,7 @@ function publicationSearchQuery(searchTerm) {
 function publicationMetadataQuery(searchTerm) {
 
     query = `
-    SELECT ?entity ?label (GROUP_CONCAT(DISTINCT ?source; separator="|") AS ?sources) (GROUP_CONCAT(DISTINCT ?creatorLabel; separator="|") AS ?creatorLabels) ?date ?arxivID ?description (GROUP_CONCAT(DISTINCT ?tag; separator="|") AS ?tags)
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?source; separator="|") AS ?sources) (GROUP_CONCAT(DISTINCT ?creatorLabel; separator="|") AS ?creatorLabels) ?date ?arxivID ?description (GROUP_CONCAT(DISTINCT ?tag; separator="|") AS ?tags)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
@@ -718,16 +718,17 @@ function publicationMetadataQuery(searchTerm) {
 function publicationModelQuery(searchTerm) {
 
     query = `
-    SELECT ?label ?modelLabel
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?modelID; separator="|") AS ?modelIDs) (GROUP_CONCAT(DISTINCT ?modelLabel; separator="|") AS ?modelLabels)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
         OPTIONAL{<${searchTerm}> mlso:hasRelatedImplementation ?implID.
-                ?runID mls:executes ?implID;
-                        mls:hasOutput ?modelID.
-                ?modelID rdf:type mls:Model;
-                        rdfs:label ?modelLabel.}
-    } 
+            ?runID mls:executes ?implID;
+                   mls:hasOutput ?modelID.
+            ?modelID rdf:type mls:Model;
+                     rdfs:label ?modelLabel.}
+
+    } GROUP BY ?label
     LIMIT 1
     `;
 
@@ -756,6 +757,7 @@ function publicationTaskQuery(searchTerm) {
 
     query = `
     SELECT ?label (GROUP_CONCAT(DISTINCT ?taskTypeLabel; separator="|") AS ?taskTypeLabels)
+    (GROUP_CONCAT(DISTINCT ?taskTypeID; separator="|") AS ?taskTypeIDs)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
@@ -774,6 +776,7 @@ function publicationAlgorithmQuery(searchTerm) {
 
     query = `
     SELECT ?label (GROUP_CONCAT(DISTINCT ?algoLabel; separator="|") AS ?algoLabels)
+    (GROUP_CONCAT(DISTINCT ?algoID; separator="|") AS ?algoIDs)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
@@ -793,6 +796,7 @@ function publicationDatasetQuery(searchTerm) {
 
     query = `
     SELECT ?label (GROUP_CONCAT(DISTINCT ?datasetLabel; separator="|") AS ?datasetLabels) (GROUP_CONCAT(DISTINCT ?datasetSource; separator="|") AS ?datasetSources)
+    (GROUP_CONCAT(DISTINCT ?datasetID; separator="|") AS ?datasetIDs)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         OPTIONAL{?datasetID mlso:hasScientificReference <${searchTerm}>;

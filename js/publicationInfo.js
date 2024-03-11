@@ -1,4 +1,4 @@
-const pwc_test = 'http://w3id.org/mlsea/pwc/algorithm/GAN' ;
+const pwc_test = 'http://w3id.org/mlsea/pwc/scientificWork/Likelihood%20Ratios%20for%20Out-of-Distribution%20Detection' ;
 
 const entityID = decodeURIComponent(window.location.href).split("?entity=")[1];
 const prefix = "http://w3id.org/"
@@ -21,83 +21,99 @@ function executeQueries(entity){
     var searchingSpanDiv = document.getElementById('searchingSpan');
     searchingSpanDiv.style.display = 'block';
 
-    var sparqlQuery = algorithmMetadataQuery(entity);
+    var sparqlQuery = publicationMetadataQuery(entity);
     var encodedQuery = encodeURIComponent(sparqlQuery);
-    fetchAlgorithmMetadata(endpointUrl, encodedQuery, requestOptions)
+    fetchPublicationMetadata(endpointUrl, encodedQuery, requestOptions)
 
-    var sparqlQuery = algorithmPublicationQuery(entity);
+    var sparqlQuery = publicationSoftwareQuery(entity);
     var encodedQuery = encodeURIComponent(sparqlQuery);
-    fetchAlgorithmPublication(endpointUrl, encodedQuery, requestOptions)
+    fetchPublicationSoftware(endpointUrl, encodedQuery, requestOptions)
 
-    var sparqlQuery = algorithmTaskQuery(entity);
+    var sparqlQuery = publicationTaskQuery(entity);
     var encodedQuery = encodeURIComponent(sparqlQuery);
-    fetchAlgorithmTask(endpointUrl, encodedQuery, requestOptions)
+    fetchPublicationTask(endpointUrl, encodedQuery, requestOptions)
 
-    var sparqlQuery = algorithmModelQuery(entity);
+    var sparqlQuery = publicationDatasetQuery(entity);
     var encodedQuery = encodeURIComponent(sparqlQuery);
-    fetchAlgorithmModel(endpointUrl, encodedQuery, requestOptions)
+    fetchPublicationDataset(endpointUrl, encodedQuery, requestOptions)
 
-    var sparqlQuery = algorithmSoftwareQuery(entity);
+    var sparqlQuery = publicationModelQuery(entity);
     var encodedQuery = encodeURIComponent(sparqlQuery);
-    fetchAlgorithmSoftware(endpointUrl, encodedQuery, requestOptions)
+    fetchPublicationModel(endpointUrl, encodedQuery, requestOptions)
+
+    var sparqlQuery = publicationAlgorithmQuery(entity);
+    var encodedQuery = encodeURIComponent(sparqlQuery);
+    fetchPublicationAlgorithm(endpointUrl, encodedQuery, requestOptions)
 
     searchingSpanDiv.style.display = 'none';
 }
 
-function fetchAlgorithmMetadata(endpointUrl, encodedQuery, requestOptions){
+function fetchPublicationMetadata(endpointUrl, encodedQuery, requestOptions){
     // Fetch data from the SPARQL endpoint
     fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
     .then(response => response.json())
     .then(data => {
-        displayAlgorithmMetadata(data.results.bindings[0]);
+        displayPublicationMetadata(data.results.bindings[0]);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
     });
 }
 
-function fetchAlgorithmPublication(endpointUrl, encodedQuery, requestOptions){
+function fetchPublicationSoftware(endpointUrl, encodedQuery, requestOptions){
     // Fetch data from the SPARQL endpoint
     fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
     .then(response => response.json())
     .then(data => {
-        displayAlgorithmPublication(data.results.bindings[0]);
+        displayPublicationSoftware(data.results.bindings[0]);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
     });
 }
 
-function fetchAlgorithmTask(endpointUrl, encodedQuery, requestOptions){
+function fetchPublicationTask(endpointUrl, encodedQuery, requestOptions){
     // Fetch data from the SPARQL endpoint
     fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
     .then(response => response.json())
     .then(data => {
-        displayAlgorithmTaskMetadata(data.results.bindings[0]);
+        displayPublicationTaskMetadata(data.results.bindings[0]);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
     });
 }
 
-function fetchAlgorithmModel(endpointUrl, encodedQuery, requestOptions){
+function fetchPublicationDataset(endpointUrl, encodedQuery, requestOptions){
     // Fetch data from the SPARQL endpoint
     fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
     .then(response => response.json())
     .then(data => {
-        displayAlgorithmModelMetadata(data.results.bindings[0]);
+        displayPublicationDatasetMetadata(data.results.bindings[0]);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
     });
 }
 
-function fetchAlgorithmSoftware(endpointUrl, encodedQuery, requestOptions){
+function fetchPublicationModel(endpointUrl, encodedQuery, requestOptions){
     // Fetch data from the SPARQL endpoint
     fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
     .then(response => response.json())
     .then(data => {
-        displayAlgorithmSoftwareMetadata(data.results.bindings[0]);
+        displayPublicationModelMetadata(data.results.bindings[0]);
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
+function fetchPublicationAlgorithm(endpointUrl, encodedQuery, requestOptions){
+    // Fetch data from the SPARQL endpoint
+    fetch(`${endpointUrl}?query=${encodedQuery}`, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+        displayPublicationAlgorithmMetadata(data.results.bindings[0]);
     })
     .catch(error => {
         console.error('Error fetching data:', error);
@@ -106,60 +122,73 @@ function fetchAlgorithmSoftware(endpointUrl, encodedQuery, requestOptions){
 
 
 
-function displayAlgorithmMetadata(result) {
+function displayPublicationMetadata(result) {
     // Handle and display the query results
-    const informationDiv = document.getElementById('algorithmMetadataDiv');
+    const informationDiv = document.getElementById('publicationMetadataDiv');
     // Clear any existing content
     informationDiv.innerHTML = '';
 
-    informationDiv.innerHTML += `<h2><img src="img/algorithm.png" style="width:30px;"> ${result.label.value}</h2>`
+    var dateCheck = variableCheck(result, "date");
+    var creatorCheck = variableCheck(result, "creatorLabels")
+    informationDiv.innerHTML += `<h2><img src="img/publication.png" style="width:30px;"> ${result.label.value}</h2>`
+    informationDiv.innerHTML += '<span class="subtitle1">'
+    + (dateCheck === true ? result.date.value.split("T")[0] : '') 
+    + (creatorCheck === true ? ' · ' + result.creatorLabels.value.replaceAll("|",", ") : '') 
+    + '</span>'
+    + '<br>' 
 
-    if (variableCheck(result, "source")){
-        informationDiv.innerHTML += `<a href="${result.source.value}" class="sourceLink" target=”_blank”>Source</a><br><br>`
+    if (variableCheck(result, "arxivID")){
+        informationDiv.innerHTML += '<p><b>ArXivId: </b>' + result.arxivID.value + '</p><br>'
     }
+
+    if (variableCheck(result, "sources")){
+        var sources = result.sources.value.split("|")
+        if (sources[0].includes("paperswithcode")){
+            var publication = sources[0];
+            var originalLink = sources[1];
+        }else {
+            var publication = sources[1];
+            var originalLink = sources[0];
+        }
+
+        informationDiv.innerHTML += `<span>Source: <a href="${publication}" target="_blank">${publication.split("://")[1]}</a></span><br>`
+        informationDiv.innerHTML += `<span>Original publication: <a href="${originalLink}" target="_blank">${originalLink.split("://")[1]}</a></span><br><br>`
+    }
+
     if (variableCheck(result, "description")){
         informationDiv.innerHTML += '<p>' + result.description.value + '</p><br>'
     }
-    if (variableCheck(result, "altLabels")){
-        var altLabels = result.altLabels.value.split("|")
-        altLabels = listClean(altLabels, result.label.value)
 
-        if (altLabels.length > 0){
-            var altLabelsText = altLabels.toString().replaceAll(",",", ");
-        }
-        informationDiv.innerHTML += '<p><b>Alternative names:</b> ' + altLabelsText + '</p>'
-    }
-    if (variableCheck(result, "repoSource")){
-        informationDiv.innerHTML += '<p><b>Algorithm Implementation Repository:</b> ' + getHTMLink(result.repoSource.value, result.repoSource.value) + '</p>'
+    if (variableCheck(result, "tags")){
+        informationDiv.innerHTML += '<p><b>Tags:</b> ' + result.tags.value.replaceAll("|",", ") + '</p>'
     }
 
     informationDiv.innerHTML += '<br><br><br><br>'
     
 }
 
-function displayAlgorithmPublication(result) {
+function displayPublicationSoftware(result) {
     // Handle and display the query results
-    const informationDiv = document.getElementById('algorithmPublicationDiv');
+    const informationDiv = document.getElementById('publicationSoftwareDiv');
     // Clear any existing content
     informationDiv.innerHTML = '';
 
-    if (variableCheck(result, "paperLabels")){
-        var paperSources = result.paperSources.value.split("|")
-        var paperLabels = result.paperLabels.value.split("|")
+    if (variableCheck(result, "softwareSources")){
+        var softwareSources = result.softwareSources.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/publication.png" style="width:25px;"> Publications</h3><hr>`
+        informationDiv.innerHTML += '<h3><img src="img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
-        for (var i=0; i < paperLabels.length; i++){
-            informationDiv.innerHTML += `<li class="list-group-item">` + getHTMLink(paperSources[i],paperLabels[i]) +`</li>`
+        for (var i=0; i < softwareSources.length; i++){
+            informationDiv.innerHTML += `<li class="list-group-item"><a href="${softwareSources[i]}" target="_blank">${softwareSources[i]}</a></li>`
         }
         informationDiv.innerHTML += '</ul><br><br><br><br>'
     }
 
 }
 
-function displayAlgorithmTaskMetadata(result) {
+function displayPublicationTaskMetadata(result) {
     // Handle and display the query results
-    const informationDiv = document.getElementById('algorithmTaskDiv');
+    const informationDiv = document.getElementById('publicationTaskDiv');
     // Clear any existing content
     informationDiv.innerHTML = '';
 
@@ -177,9 +206,29 @@ function displayAlgorithmTaskMetadata(result) {
 
 }
 
-function displayAlgorithmModelMetadata(result) {
+function displayPublicationDatasetMetadata(result) {
     // Handle and display the query results
-    const informationDiv = document.getElementById('algorithmModelDiv');
+    const informationDiv = document.getElementById('publicationDatasetDiv');
+    // Clear any existing content
+    informationDiv.innerHTML = '';
+
+    if (variableCheck(result, "datasetIDs")){
+        var datasetIDs = result.datasetIDs.value.split("|")
+        var datasetLabels = result.datasetLabels.value.split("|")
+
+        informationDiv.innerHTML += `<h3><img src="img/database.png" style="width:25px;"> Datasets</h3><hr>`
+        informationDiv.innerHTML += '<ul class="list-group">'
+        for (var i=0; i < datasetIDs.length; i++){
+            informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("dataset",datasetIDs[i],datasetLabels[i]) +`</li>`
+        }
+        informationDiv.innerHTML += '</ul><br><br><br><br>'
+    }
+
+}
+
+function displayPublicationModelMetadata(result) {
+    // Handle and display the query results
+    const informationDiv = document.getElementById('publicationModelDiv');
     // Clear any existing content
     informationDiv.innerHTML = '';
 
@@ -197,31 +246,25 @@ function displayAlgorithmModelMetadata(result) {
 
 }
 
-function displayAlgorithmSoftwareMetadata(result) {
+function displayPublicationAlgorithmMetadata(result) {
     // Handle and display the query results
-    const informationDiv = document.getElementById('algorithmSoftwareDiv');
+    const informationDiv = document.getElementById('publicationAlgorithmDiv');
     // Clear any existing content
     informationDiv.innerHTML = '';
 
-    if (variableCheck(result, "softwareSources")){
-        var softwareSources = result.softwareSources.value.split("|")
+    if (variableCheck(result, "algoIDs")){
+        var algoLabels = result.algoLabels.value.split("|")
+        var algoIDs = result.algoIDs.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="img/algorithm.png" style="width:25px;"> Algorithms</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
-        for (var i=0; i < softwareSources.length; i++){
-            informationDiv.innerHTML += `<li class="list-group-item"><a href="${softwareSources[i]}" target="_blank">${softwareSources[i]}</a></li>`
+        for (var i=0; i < algoLabels.length; i++){
+            informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("algorithm", algoIDs[i], algoLabels[i]) + `</li>`
         }
         informationDiv.innerHTML += '</ul><br><br><br><br>'
     }
 
 }
-
-
-
-
-
-
-
 
 
 

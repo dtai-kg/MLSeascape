@@ -113,7 +113,7 @@ function displayDatasetMetadata(result) {
     var licenseCheck = variableCheck(result, "license");
     informationDiv.innerHTML += '<br><span class="subtitle1">'
     + (dateCheck === true ? result.date.value.split("T")[0] + ' · ' : '') 
-    + (creatorCheck === true ? result.creators.value.replace("|",", ") + ' · ' : '') 
+    + (creatorCheck === true ? result.creators.value.replaceAll("|",", ") + ' · ' : '') 
     + (licenseCheck === true ? result.license.value + ' License': 'Unknown License')
     + '</span>'
     + '<br><br>'
