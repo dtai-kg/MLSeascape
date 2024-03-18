@@ -211,7 +211,8 @@ function modelPublicationQuery(searchTerm) {
 function modelTaskQuery(searchTerm) {
 
     query = `
-    SELECT ?label (GROUP_CONCAT(DISTINCT ?taskLabel; separator="|") AS ?taskLabels)
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?taskTypeLabel; separator="|") AS ?taskTypeLabels)
+    (GROUP_CONCAT(DISTINCT ?taskTypeID; separator="|") AS ?taskTypeIDs)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
@@ -220,7 +221,7 @@ function modelTaskQuery(searchTerm) {
             mls:executes ?implID.
         ?paperID mlso:hasRelatedImplementation ?implID;
                 mlso:hasTaskType ?taskTypeID.
-        ?taskTypeID skos:prefLabel ?taskLabel.}
+        ?taskTypeID skos:prefLabel ?taskTypeLabel.}
         
 
     } GROUP BY ?label 
@@ -234,6 +235,7 @@ function modelAlgorithmQuery(searchTerm) {
 
     query = `
     SELECT ?label (GROUP_CONCAT(DISTINCT ?algoLabel; separator="|") AS ?algoLabels)
+    (GROUP_CONCAT(DISTINCT ?algoID; separator="|") AS ?algoIDs)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         
@@ -328,13 +330,14 @@ function softwarePublicationQuery(searchTerm) {
 function softwareTaskQuery(searchTerm) {
 
     query = `
-    SELECT ?label (GROUP_CONCAT(DISTINCT ?taskLabel; separator="|") AS ?taskLabels)
+    SELECT ?label (GROUP_CONCAT(DISTINCT ?taskTypeLabel; separator="|") AS ?taskTypeLabels)
+    (GROUP_CONCAT(DISTINCT ?taskTypeID; separator="|") AS ?taskTypeIDs)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
 
         OPTIONAL{?paperID mlso:hasRelatedSoftware <${searchTerm}>;
                         mlso:hasTaskType ?taskTypeID.
-                ?taskTypeID skos:prefLabel ?taskLabel.}
+                ?taskTypeID skos:prefLabel ?taskTypeLabel.}
     } GROUP BY ?label 
     LIMIT 1
     `;
@@ -346,6 +349,7 @@ function softwareAlgorithmQuery(searchTerm) {
 
     query = `
     SELECT ?label ?paperID ?implemID (GROUP_CONCAT(DISTINCT ?algoLabel; separator="|") AS ?algoLabels)
+    (GROUP_CONCAT(DISTINCT ?algoID; separator="|") AS ?algoIDs)
     WHERE {
         <${searchTerm}> rdfs:label ?label.
         

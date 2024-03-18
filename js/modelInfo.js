@@ -181,13 +181,14 @@ function displayModelTaskMetadata(result) {
     // Clear any existing content
     informationDiv.innerHTML = '';
 
-    if (variableCheck(result, "taskLabels")){
-        var taskTypes = result.taskLabels.value.split("|")
+    if (variableCheck(result, "taskTypeLabels")){
+        var taskTypes = result.taskTypeLabels.value.split("|")
+        var taskTypeIDs = result.taskTypeIDs.value.split("|")
 
         informationDiv.innerHTML += '<h3><img src="../img/task.png" style="width:25px;"> Task Types</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < taskTypes.length; i++){
-            informationDiv.innerHTML += `<li class="list-group-item">${taskTypes[i]}</li>`
+            informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("task", taskTypeIDs[i], taskTypes[i]) + `</li>`
         }
         informationDiv.innerHTML += '</ul><br><br><br><br>'
     }
@@ -200,13 +201,14 @@ function displayModelAlgorithmMetadata(result) {
     // Clear any existing content
     informationDiv.innerHTML = '';
 
-    if (variableCheck(result, "algoLabels")){
-        var algorithms = result.algoLabels.value.split("|")
+    if (variableCheck(result, "algoIDs")){
+        var algoLabels = result.algoLabels.value.split("|")
+        var algoIDs = result.algoIDs.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="../img/algorithm.png" style="width:25px;"> Related Algorithms</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/algorithm.png" style="width:25px;"> Algorithms</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
-        for (var i=0; i < algorithms.length; i++){
-            informationDiv.innerHTML += `<li class="list-group-item">${algorithms[i]}</li>`
+        for (var i=0; i < algoLabels.length; i++){
+            informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("algorithm", algoIDs[i], algoLabels[i]) + `</li>`
         }
         informationDiv.innerHTML += '</ul><br><br><br><br>'
     }
