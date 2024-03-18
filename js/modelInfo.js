@@ -112,7 +112,7 @@ function displayModelMetadata(results) {
     informationDiv.innerHTML = '';
 
     var result = results[0];
-    informationDiv.innerHTML += `<h2><img src="img/model.png" style="width:30px;"> ${result.label.value}</h2><br><br><br>`
+    informationDiv.innerHTML += `<h2><img src="../img/model.png" style="width:30px;"> ${result.label.value}</h2><br><br><br>`
 
     if (variableCheck(result, "evalLabel")){
         var evalLabels = [];
@@ -147,7 +147,7 @@ function displayModelPublicationMetadata(result) {
             var originalLink = publications[0];
         }
 
-        informationDiv.innerHTML += '<h3><img src="img/publication.png" style="width:25px;"> Publication</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/publication.png" style="width:25px;"> Publication</h3><hr>'
         informationDiv.innerHTML += `<p>Title: <b>'${result.paperLabel.value}'</b></p>`
         informationDiv.innerHTML += `<p>Source: <a href="${publication}" target="_blank">${publication.split("://")[1]}</a></p>`
         informationDiv.innerHTML += `<p>Original publication: <a href="${originalLink}" target="_blank">${originalLink.split("://")[1]}</a></p>`
@@ -165,7 +165,7 @@ function displayModelSoftwareMetadata(result) {
     if (variableCheck(result, "repoSources")){
         var repoSources = result.repoSources.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < repoSources.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item"><a href="${repoSources[i]}" target="_blank">${repoSources[i]}</a></li>`
@@ -184,7 +184,7 @@ function displayModelTaskMetadata(result) {
     if (variableCheck(result, "taskLabels")){
         var taskTypes = result.taskLabels.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/task.png" style="width:25px;"> Task Types</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/task.png" style="width:25px;"> Task Types</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < taskTypes.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">${taskTypes[i]}</li>`
@@ -203,7 +203,7 @@ function displayModelAlgorithmMetadata(result) {
     if (variableCheck(result, "algoLabels")){
         var algorithms = result.algoLabels.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/algorithm.png" style="width:25px;"> Related Algorithms</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/algorithm.png" style="width:25px;"> Related Algorithms</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < algorithms.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">${algorithms[i]}</li>`
@@ -211,30 +211,6 @@ function displayModelAlgorithmMetadata(result) {
         informationDiv.innerHTML += '</ul><br><br><br><br>'
     }
 
-}
-
-
-
-function variableCheck (object, field){
-
-    var check = false;
-    if (object.hasOwnProperty(field)) {
-        if (object[field].value !== ""){
-            var check = true;
-        }
-    }
-    return check;
-}
-
-function listClean (list, string){
-
-    while (list.indexOf(string) !== -1) {
-        // Find the index of the string to remove
-        let index = list.indexOf(string);
-        // Remove the string from the list
-        list.splice(index, 1);
-    }
-    return list
 }
 
 

@@ -337,25 +337,25 @@ function displayResultsPage(results, startIndex, endIndex) {
             var entity = result.entity.value.split("w3id.org/")[1]; // Extract the entity (subject) from the clicked card
 
             if (searchMode === "datasets"){
-                window.open("datasetInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+                window.open("views/datasetInfo.html?entity=" + encodeURIComponent(entity), "_blank");
             }
             else if (searchMode === "models"){
-                window.open("modelInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+                window.open("views/modelInfo.html?entity=" + encodeURIComponent(entity), "_blank");
             }
             else if (searchMode === "software"){
-                window.open("softwareInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+                window.open("views/softwareInfo.html?entity=" + encodeURIComponent(entity), "_blank");
             }
             else if (searchMode === "tasks"){
-                window.open("taskInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+                window.open("views/taskInfo.html?entity=" + encodeURIComponent(entity), "_blank");
             }
             else if (searchMode === "algorithms"){
-                window.open("algorithmInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+                window.open("views/algorithmInfo.html?entity=" + encodeURIComponent(entity), "_blank");
             }
             else if (searchMode === "implementations"){
-                window.open("implementationInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+                window.open("views/implementationInfo.html?entity=" + encodeURIComponent(entity), "_blank");
             }
             else if (searchMode === "publications"){
-                window.open("publicationInfo.html?entity=" + encodeURIComponent(entity), "_blank");
+                window.open("views/publicationInfo.html?entity=" + encodeURIComponent(entity), "_blank");
             }
             
             });

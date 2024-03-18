@@ -129,7 +129,7 @@ function displayTaskMetadata(result) {
     informationDiv.innerHTML = '';
 
     if (result.hasOwnProperty('label')){
-        informationDiv.innerHTML += `<h2><img src="img/task.png" style="width:30px;"> ${result.label.value}</h2>`
+        informationDiv.innerHTML += `<h2><img src="../img/task.png" style="width:30px;"> ${result.label.value}</h2>`
     }
         if (result.hasOwnProperty('source')){
         informationDiv.innerHTML += `<a href="${result.source.value}" class="sourceLink" target=”_blank”>Source</a><br><br>`
@@ -139,7 +139,7 @@ function displayTaskMetadata(result) {
     }
     if (result.hasOwnProperty('datasetLabel')){
         informationDiv.innerHTML += '<br><br><br><br>'
-        informationDiv.innerHTML += `<h2><img src="img/database.png" style="width:30px;"> Dataset</h2><hr>`
+        informationDiv.innerHTML += `<h2><img src="../img/database.png" style="width:30px;"> Dataset</h2><hr>`
         informationDiv.innerHTML += `<p><a href="${result.datasetSource.value}" target="_blank">${result.datasetLabel.value}</a></p>`
     }
     
@@ -152,7 +152,7 @@ function displayTaskTypeMetadata(result) {
     informationDiv.innerHTML = '';
 
     if (result.hasOwnProperty('label')){
-        informationDiv.innerHTML += `<h2><img src="img/task.png" style="width:30px;"> ${result.label.value}</h2>`
+        informationDiv.innerHTML += `<h2><img src="../img/task.png" style="width:30px;"> ${result.label.value}</h2>`
     }
     if (variableCheck(result, "sources")){
         var sources = result.sources.value.split("|")
@@ -205,7 +205,7 @@ function displayTaskTypeDatasetMetadata(result) {
         var datasetIDs = result.datasetIDs.value.split("|")
         var datasetLabels = result.datasetLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/database.png" style="width:25px;"> Datasets</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/database.png" style="width:25px;"> Datasets</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < datasetIDs.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("dataset",datasetIDs[i],datasetLabels[i]) +`</li>`
@@ -225,7 +225,7 @@ function displayTaskTypePublicationMetadata(result) {
         var paperSources = result.paperSources.value.split("|")
         var paperLabels = result.paperLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/publication.png" style="width:25px;"> Publications</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/publication.png" style="width:25px;"> Publications</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < paperLabels.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getHTMLink(paperSources[i],paperLabels[i]) +`</li>`
@@ -245,7 +245,7 @@ function displayTaskTypeModelMetadata(result) {
         var modelIDs = result.modelIDs.value.split("|")
         var modelLabels = result.modelLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/model.png" style="width:25px;"> Models</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/model.png" style="width:25px;"> Models</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < modelLabels.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("model", modelIDs[i],modelLabels[i]) +`</li>`
@@ -265,7 +265,7 @@ function displayTaskTypeAlgorithmMetadata(result) {
         var algoIDs = result.algoIDs.value.split("|")
         var algoLabels = result.algoLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/algorithm.png" style="width:25px;"> Algorithms</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/algorithm.png" style="width:25px;"> Algorithms</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < algoIDs.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("algorithm", algoIDs[i],algoLabels[i]) +`</li>`
@@ -273,43 +273,6 @@ function displayTaskTypeAlgorithmMetadata(result) {
         informationDiv.innerHTML += '</ul><br><br><br><br>'
     }
 
-}
-
-
-
-
-
-
-function variableCheck (object, field){
-
-    var check = false;
-    if (object.hasOwnProperty(field)) {
-        if (object[field].value !== ""){
-            var check = true;
-        }
-    }
-    return check;
-}
-
-function listClean (list, string){
-
-    while (list.indexOf(string) !== -1) {
-        // Find the index of the string to remove
-        let index = list.indexOf(string);
-        // Remove the string from the list
-        list.splice(index, 1);
-    }
-    return list
-}
-
-function getHTMLink(link, linkText){
-
-    return `<a href="${link}" target="_blank">${linkText}</a>`
-}
-
-function getMLSeascapeLink (page, entity, linkText){
-
-    return `<a href="${page}Info.html?entity=${encodeURIComponent(entity.split("w3id.org/")[1])}" target="_blank">${linkText}</a>`
 }
 
 

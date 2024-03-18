@@ -1,6 +1,6 @@
-const searchLimit = 50;
+var searchLimit = 50;
 
-const prefixes = `
+var prefixes = `
 PREFIX luc: <http://www.ontotext.com/connectors/lucene#>
 PREFIX luc-index: <http://www.ontotext.com/connectors/lucene/instance#>
 PREFIX mls: <http://www.w3.org/ns/mls#>

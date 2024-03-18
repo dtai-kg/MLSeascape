@@ -47,7 +47,7 @@ function displayImplementationMetadata(result) {
     // Clear any existing content
     informationDiv.innerHTML = '';
 
-    informationDiv.innerHTML += `<h2><img src="img/implementation.png" style="width:30px;"> ${result.label.value}</h2>`
+    informationDiv.innerHTML += `<h2><img src="../img/implementation.png" style="width:30px;"> ${result.label.value}</h2>`
     if (result.hasOwnProperty('source')){
         informationDiv.innerHTML += `<a href="${result.source.value}" class="sourceLink" target=”_blank”>Source</a>`
     }
@@ -71,44 +71,11 @@ function displayImplementationMetadata(result) {
 
     if (result.hasOwnProperty('datasetLabel')){
         informationDiv.innerHTML += '<br><br><br>'
-        informationDiv.innerHTML += `<h2><img src="img/database.png" style="width:30px;"> Dataset</h2><hr>`
+        informationDiv.innerHTML += `<h2><img src="../img/database.png" style="width:30px;"> Dataset</h2><hr>`
         informationDiv.innerHTML += `<p><a href="${result.datasetSource.value}" target="_blank">${result.datasetLabel.value}</a></p>`
     }
 
     
-}
-
-
-function variableCheck (object, field){
-
-    var check = false;
-    if (object.hasOwnProperty(field)) {
-        if (object[field].value !== ""){
-            var check = true;
-        }
-    }
-    return check;
-}
-
-function listClean (list, string){
-
-    while (list.indexOf(string) !== -1) {
-        // Find the index of the string to remove
-        let index = list.indexOf(string);
-        // Remove the string from the list
-        list.splice(index, 1);
-    }
-    return list
-}
-
-function getHTMLink(link, linkText){
-
-    return `<a href="${link}" target="_blank">${linkText}</a>`
-}
-
-function getMLSeascapeLink (page, entity, linkText){
-
-    return `<a href="${page}Info.html?entity=${encodeURIComponent(entity.split("w3id.org/")[1])}" target="_blank">${linkText}</a>`
 }
 
 

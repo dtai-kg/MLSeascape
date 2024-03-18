@@ -100,7 +100,7 @@ function displayDatasetMetadata(result) {
     informationDiv.innerHTML = '';
 
 
-    informationDiv.innerHTML += `<h2><img src="img/database.png" style="width:30px;"> ${result.label.value}</h2>`
+    informationDiv.innerHTML += `<h2><img src="../img/database.png" style="width:30px;"> ${result.label.value}</h2>`
     if (result.hasOwnProperty('source')){
         informationDiv.innerHTML += `<a href="${result.source.value}" class="sourceLink" target=”_blank”>Source</a>`
     }
@@ -169,7 +169,7 @@ function displayDatasetTaskMetadata(result) {
         var taskSources = result.taskSources.value.split("|")
         var taskLabels = result.taskLabels.value.split("|")
         
-        informationDiv.innerHTML += '<h3><img src="img/task.png" style="width:25px;"> Tasks</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/task.png" style="width:25px;"> Tasks</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < taskSources.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">${taskLabels[i]}: <a href="${taskSources[i]}" target="_blank">${taskSources[i].split("://")[1]}</a></li>`
@@ -180,7 +180,7 @@ function displayDatasetTaskMetadata(result) {
     if (variableCheck(result, "taskTypes")){
         var taskTypes = result.taskTypes.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/task.png" style="width:25px;"> Task Types</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/task.png" style="width:25px;"> Task Types</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < taskTypes.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">${taskTypes[i]}</li>`
@@ -199,7 +199,7 @@ function displayDatasetSoftwareMetadata(result) {
     if (variableCheck(result, "codeNotebooks")){
         var codeNotebooks = result.codeNotebooks.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/software.png" style="width:25px;"> Code Notebooks</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/software.png" style="width:25px;"> Code Notebooks</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < codeNotebooks.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item"><a href="${codeNotebooks[i]}" target="_blank">${codeNotebooks[i].split("www.")[1]}</a></li>`
@@ -211,7 +211,7 @@ function displayDatasetSoftwareMetadata(result) {
         var codeRepos = result.codeRepos.value.split("|")
 
 
-        informationDiv.innerHTML += '<h3><img src="img/software.png" style="width:25px;"> Code Repositories</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/software.png" style="width:25px;"> Code Repositories</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < codeRepos.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item"><a href="${codeRepos[i]}" target="_blank">${codeRepos[i]}</a></li>`
@@ -237,35 +237,13 @@ function displayDatasetPublicationMetadata(result) {
             var originalLink = publications[0];
         }
 
-        informationDiv.innerHTML += '<h3><img src="img/publication.png" style="width:25px;"> Publication Introduced</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/publication.png" style="width:25px;"> Publication Introduced</h3><hr>'
         informationDiv.innerHTML += `<p>Title: <b>'${result.paperLabel.value}'</b></p>`
         informationDiv.innerHTML += `<p>Source: <a href="${publication}" target="_blank">${publication.split("://")[1]}</a></p>`
         informationDiv.innerHTML += `<p>Original publication: <a href="${originalLink}" target="_blank">${originalLink.split("://")[1]}</a></p>`
         informationDiv.innerHTML += '<br><br><br><br>'
     }
 
-}
-
-function variableCheck (object, field){
-
-    var check = false;
-    if (object.hasOwnProperty(field)) {
-        if (object[field].value !== ""){
-            var check = true;
-        }
-    }
-    return check;
-}
-
-function listClean (list, string){
-
-    while (list.indexOf(string) !== -1) {
-        // Find the index of the string to remove
-        let index = list.indexOf(string);
-        // Remove the string from the list
-        list.splice(index, 1);
-    }
-    return list
 }
 
 

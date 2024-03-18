@@ -6,7 +6,7 @@
   <title>MLSeascape</title>
 
   <!-- FAVICON -->
-  <link rel="icon" type="image/png" href="img/mlsea-logo-transparent.png">
+  <link rel="icon" type="image/png" href="../img/mlsea-logo-transparent.png">
 
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
   <!-- Custom File's Link -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 
 </head>
 
@@ -25,8 +25,8 @@
     <header class="header_wrapper">
       <nav class="navbar navbar-expand-lg">
           <div class="container">
-              <a class="navbar-brand mx-auto" href="./index.html">
-                  <img src="img/mlsea-logo-transparent.png"  alt="logo">
+              <a class="navbar-brand mx-auto" href="../index.html">
+                  <img src="../img/mlsea-logo-transparent.png"  alt="logo">
               </a>
   
           </div>
@@ -38,7 +38,7 @@
     <section id="home" class="banner_wrapper p-0">
       <div class="swiper mySwiper">
           <div class="swiper-wrapper">
-              <div class="swiper-slide" style="background-image: url(./img/DALL·E1.png);">
+              <div class="swiper-slide" style="background-image: url(../img/DALL·E1.png);">
                   <div class="slide-caption text-center">
                       <div>
                           <h1>Discover Machine Learning with the Power of Knowledge Graphs</h1>
@@ -66,8 +66,8 @@
     <div class="container-fluid">
         <div class="row ">
             <div class="col-sm-1 lg-0"></div>
-            <div class="col-sm-10 text-left mb-8" id="softwareMetadataDiv">
-                <!-- <h2><img src="img/database.png" class="titleIcon">Dataset Title</h2>
+            <div class="col-sm-10 text-left mb-8" id="publicationMetadataDiv">
+                <!-- <h2><img src="../img/database.png" class="titleIcon">Dataset Title</h2>
                 <a href="index.html" class="sourceLink" target=”_blank”>Source</a>
                 <br>
                 <span class="subtitle1">Date * Creator * Licence</span>
@@ -104,7 +104,7 @@
 
         <div class="row ">
             <div class="col-sm-1 lg-0"></div>
-            <div class="col-sm-10 text-left mb-8" id="softwareDatasetDiv">
+            <div class="col-sm-10 text-left mb-8" id="publicationSoftwareDiv">
                 
             </div>
             <div class="col-sm-1 lg-0"></div>
@@ -112,7 +112,7 @@
 
         <div class="row ">
             <div class="col-sm-1 lg-0"></div>
-            <div class="col-sm-10 text-left mb-8" id="softwareTaskDiv">
+            <div class="col-sm-10 text-left mb-8" id="publicationTaskDiv">
 
             </div>
             <div class="col-sm-1 lg-0"></div>
@@ -120,7 +120,7 @@
 
         <div class="row ">
             <div class="col-sm-1 lg-0"></div>
-            <div class="col-sm-10 text-left mb-8" id="softwareAlgorithmDiv">
+            <div class="col-sm-10 text-left mb-8" id="publicationDatasetDiv">
                 
             </div>
             <div class="col-sm-1 lg-0"></div>
@@ -128,7 +128,15 @@
 
         <div class="row ">
             <div class="col-sm-1 lg-0"></div>
-            <div class="col-sm-10 text-left mb-8" id="softwarePublicationDiv">
+            <div class="col-sm-10 text-left mb-8" id="publicationModelDiv">
+                
+            </div>
+            <div class="col-sm-1 lg-0"></div>
+        </div>
+
+        <div class="row ">
+            <div class="col-sm-1 lg-0"></div>
+            <div class="col-sm-10 text-left mb-8" id="publicationAlgorithmDiv">
                 
             </div>
             <div class="col-sm-1 lg-0"></div>
@@ -166,8 +174,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Custom Js Link -->
-    <script src="js/queries.js"></script>
-    <script src="js/softwareInfo.js"></script>
+    <script src="../js/queries.js"></script>
+    <script src="../js/util.js"></script>
+    <script src="../js/publicationInfo.js"></script>
 
 </body>
 </html>

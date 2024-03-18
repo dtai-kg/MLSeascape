@@ -112,7 +112,7 @@ function displayAlgorithmMetadata(result) {
     // Clear any existing content
     informationDiv.innerHTML = '';
 
-    informationDiv.innerHTML += `<h2><img src="img/algorithm.png" style="width:30px;"> ${result.label.value}</h2>`
+    informationDiv.innerHTML += `<h2><img src="../img/algorithm.png" style="width:30px;"> ${result.label.value}</h2>`
 
     if (variableCheck(result, "source")){
         informationDiv.innerHTML += `<a href="${result.source.value}" class="sourceLink" target=”_blank”>Source</a><br><br>`
@@ -147,7 +147,7 @@ function displayAlgorithmPublication(result) {
         var paperSources = result.paperSources.value.split("|")
         var paperLabels = result.paperLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/publication.png" style="width:25px;"> Publications</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/publication.png" style="width:25px;"> Publications</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < paperLabels.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getHTMLink(paperSources[i],paperLabels[i]) +`</li>`
@@ -167,7 +167,7 @@ function displayAlgorithmTaskMetadata(result) {
         var taskTypes = result.taskTypeLabels.value.split("|")
         var taskTypeIDs = result.taskTypeIDs.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/task.png" style="width:25px;"> Task Types</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/task.png" style="width:25px;"> Task Types</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < taskTypes.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("task", taskTypeIDs[i], taskTypes[i]) + `</li>`
@@ -187,7 +187,7 @@ function displayAlgorithmModelMetadata(result) {
         var modelIDs = result.modelIDs.value.split("|")
         var modelLabels = result.modelLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/model.png" style="width:25px;"> Models</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/model.png" style="width:25px;"> Models</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < modelLabels.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("model", modelIDs[i],modelLabels[i]) +`</li>`
@@ -206,7 +206,7 @@ function displayAlgorithmSoftwareMetadata(result) {
     if (variableCheck(result, "softwareSources")){
         var softwareSources = result.softwareSources.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < softwareSources.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item"><a href="${softwareSources[i]}" target="_blank">${softwareSources[i]}</a></li>`
@@ -214,47 +214,6 @@ function displayAlgorithmSoftwareMetadata(result) {
         informationDiv.innerHTML += '</ul><br><br><br><br>'
     }
 
-}
-
-
-
-
-
-
-
-
-
-
-function variableCheck (object, field){
-
-    var check = false;
-    if (object.hasOwnProperty(field)) {
-        if (object[field].value !== ""){
-            var check = true;
-        }
-    }
-    return check;
-}
-
-function listClean (list, string){
-
-    while (list.indexOf(string) !== -1) {
-        // Find the index of the string to remove
-        let index = list.indexOf(string);
-        // Remove the string from the list
-        list.splice(index, 1);
-    }
-    return list
-}
-
-function getHTMLink(link, linkText){
-
-    return `<a href="${link}" target="_blank">${linkText}</a>`
-}
-
-function getMLSeascapeLink (page, entity, linkText){
-
-    return `<a href="${page}Info.html?entity=${encodeURIComponent(entity.split("w3id.org/")[1])}" target="_blank">${linkText}</a>`
 }
 
 

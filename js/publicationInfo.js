@@ -130,7 +130,7 @@ function displayPublicationMetadata(result) {
 
     var dateCheck = variableCheck(result, "date");
     var creatorCheck = variableCheck(result, "creatorLabels")
-    informationDiv.innerHTML += `<h2><img src="img/publication.png" style="width:30px;"> ${result.label.value}</h2>`
+    informationDiv.innerHTML += `<h2><img src="../img/publication.png" style="width:30px;"> ${result.label.value}</h2>`
     informationDiv.innerHTML += '<span class="subtitle1">'
     + (dateCheck === true ? result.date.value.split("T")[0] : '') 
     + (creatorCheck === true ? ' · ' + result.creatorLabels.value.replaceAll("|",", ") : '') 
@@ -176,7 +176,7 @@ function displayPublicationSoftware(result) {
     if (variableCheck(result, "softwareSources")){
         var softwareSources = result.softwareSources.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/software.png" style="width:25px;"> Related Repositories</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < softwareSources.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item"><a href="${softwareSources[i]}" target="_blank">${softwareSources[i]}</a></li>`
@@ -196,7 +196,7 @@ function displayPublicationTaskMetadata(result) {
         var taskTypes = result.taskTypeLabels.value.split("|")
         var taskTypeIDs = result.taskTypeIDs.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/task.png" style="width:25px;"> Task Types</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/task.png" style="width:25px;"> Task Types</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < taskTypes.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("task", taskTypeIDs[i], taskTypes[i]) + `</li>`
@@ -216,7 +216,7 @@ function displayPublicationDatasetMetadata(result) {
         var datasetIDs = result.datasetIDs.value.split("|")
         var datasetLabels = result.datasetLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/database.png" style="width:25px;"> Datasets</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/database.png" style="width:25px;"> Datasets</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < datasetIDs.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("dataset",datasetIDs[i],datasetLabels[i]) +`</li>`
@@ -236,7 +236,7 @@ function displayPublicationModelMetadata(result) {
         var modelIDs = result.modelIDs.value.split("|")
         var modelLabels = result.modelLabels.value.split("|")
 
-        informationDiv.innerHTML += `<h3><img src="img/model.png" style="width:25px;"> Models</h3><hr>`
+        informationDiv.innerHTML += `<h3><img src="../img/model.png" style="width:25px;"> Models</h3><hr>`
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < modelLabels.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("model", modelIDs[i],modelLabels[i]) +`</li>`
@@ -256,7 +256,7 @@ function displayPublicationAlgorithmMetadata(result) {
         var algoLabels = result.algoLabels.value.split("|")
         var algoIDs = result.algoIDs.value.split("|")
 
-        informationDiv.innerHTML += '<h3><img src="img/algorithm.png" style="width:25px;"> Algorithms</h3><hr>'
+        informationDiv.innerHTML += '<h3><img src="../img/algorithm.png" style="width:25px;"> Algorithms</h3><hr>'
         informationDiv.innerHTML += '<ul class="list-group">'
         for (var i=0; i < algoLabels.length; i++){
             informationDiv.innerHTML += `<li class="list-group-item">` + getMLSeascapeLink("algorithm", algoIDs[i], algoLabels[i]) + `</li>`
@@ -265,40 +265,5 @@ function displayPublicationAlgorithmMetadata(result) {
     }
 
 }
-
-
-
-function variableCheck (object, field){
-
-    var check = false;
-    if (object.hasOwnProperty(field)) {
-        if (object[field].value !== ""){
-            var check = true;
-        }
-    }
-    return check;
-}
-
-function listClean (list, string){
-
-    while (list.indexOf(string) !== -1) {
-        // Find the index of the string to remove
-        let index = list.indexOf(string);
-        // Remove the string from the list
-        list.splice(index, 1);
-    }
-    return list
-}
-
-function getHTMLink(link, linkText){
-
-    return `<a href="${link}" target="_blank">${linkText}</a>`
-}
-
-function getMLSeascapeLink (page, entity, linkText){
-
-    return `<a href="${page}Info.html?entity=${encodeURIComponent(entity.split("w3id.org/")[1])}" target="_blank">${linkText}</a>`
-}
-
 
 executeQueries(taskEntity);
